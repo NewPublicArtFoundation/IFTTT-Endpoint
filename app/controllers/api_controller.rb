@@ -19,7 +19,7 @@ class ApiController < ApplicationController
     render json: @data, status: 200
   end
 
-  def get_new_pieces_in_area_items
+  def get_new_pieces_in_area_items location, id
     image_url = ''
     location_url = ''
     items = []
@@ -28,19 +28,25 @@ class ApiController < ApplicationController
       public_art: image_url,
       location: location_url,
       meta: {
-        id: '',
+        id: id,
         timestamp: Time.now.to_i
       }
     }
 
-    items << item
-
-    return items
+    return item
   end
 
   def triggers_new_piece_in_area
+    id = request['X-Request-ID']
+    location = params[:triggerFields][:location]
+
+    data = []
+    data << get_new_pieces_in_area_items location, id + '0'
+    data << get_new_pieces_in_area_items location, id + '1'
+    data << get_new_pieces_in_area_items location, id + '2'
+
     @data = {
-      data: get_new_pieces_in_area_items
+      data: data
     }
 
     render json: @data, status: 200
