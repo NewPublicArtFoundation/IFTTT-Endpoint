@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  match 'api/v1/ifttt/v1/status',      to: 'api#status', via: [:get]
-  match 'api/v1/ifttt/v1/test/setup', to: 'api#testSetup', via: [:post, :get]
+  match 'api/v1/ifttt/v1/status',      to: 'api#status',    via: [:get]
+  match 'api/v1/ifttt/v1/test/setup',  to: 'api#test_setup', via: [:post, :get]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

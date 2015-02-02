@@ -4,7 +4,11 @@ class ApiController < ApplicationController
     render text: '', status: 200
   end
 
-  def testSetup
-    render json: 'data'
+  def test_setup
+    @data = { data: {} }
+    render json: @data, status: 200
+  end
+
+  def setup
   end
 end
