@@ -29,7 +29,7 @@ class ApiController < ApplicationController
       location: location_url,
       meta: {
         id: '',
-        timestamp: Time.now.iso8601
+        timestamp: Time.now.to_i
       }
     }
 
