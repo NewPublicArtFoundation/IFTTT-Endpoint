@@ -5,8 +5,16 @@ class ApiController < ApplicationController
   end
 
   def test_setup
-    @data = { data: {} }
+    @data = {
+      data: {
+        trigger: {},
+        action: {}
+      }
+    }
     render json: @data, status: 200
+  end
+
+  def actions_get_closest_piece
   end
 
   def setup
