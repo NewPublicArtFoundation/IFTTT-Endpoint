@@ -19,9 +19,10 @@ class ApiController < ApplicationController
     render json: @data, status: 200
   end
 
-  def get_new_pieces_in_area_item
+  def get_new_pieces_in_area_items
     image_url = ''
     location_url = ''
+    items = []
 
     item = {
       public_art: image_url,
@@ -31,15 +32,15 @@ class ApiController < ApplicationController
         timestamp: Time.now.iso8601
       }
     }
-    return item
+
+    items << item
+
+    return items
   end
 
   def triggers_new_piece_in_area
-    item = get_new_pieces_in_area_item
-    items = [ item ]
-
     @data = {
-      data: items
+      data: get_new_pieces_in_area_items
     }
 
     render json: @data, status: 200
