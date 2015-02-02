@@ -27,9 +27,6 @@ class ApiController < ApplicationController
   def triggers_new_piece_in_area
   end
 
-  def actions_get_closest_piece
-  end
-
   def setup
   end
 end
