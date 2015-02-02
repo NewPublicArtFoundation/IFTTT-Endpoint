@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :authorize
 
+  def not_verified
+    render json: {response: 401, status: 'Not valid'}, status: 401
+  end
+
   private
     def authorize
       if request.headers['IFTTT-Channel-Key'] != ENV['IFTTT_Channel_Key']
