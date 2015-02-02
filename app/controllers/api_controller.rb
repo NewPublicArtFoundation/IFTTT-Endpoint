@@ -8,16 +8,11 @@ class ApiController < ApplicationController
     @data = {
       data: {
         samples: {
-          trigger: {
+          triggers: {
             new_piece_in_area: {
               location: "new york city"
             }
           },
-          action: {
-            get_closest_piece: {
-              url: "http://scontent-a.cdninstagram.com/hphotos-xfa1/t51.2885-15/10683752_458280327647217_295471039_n.jpg"
-            }
-          }
         }
       }
     }
