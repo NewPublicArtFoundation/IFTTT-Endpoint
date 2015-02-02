@@ -20,6 +20,9 @@ class ApiController < ApplicationController
   end
 
   def get_new_pieces_in_area_item
+    image_url = ''
+    location_url = ''
+
     item = {
       public_art: image_url,
       location: location_url,
@@ -32,11 +35,7 @@ class ApiController < ApplicationController
   end
 
   def triggers_new_piece_in_area
-    image_url = ''
-    location_url = ''
-
     item = get_new_pieces_in_area_item
-
     items = [ item ]
 
     @data = {
