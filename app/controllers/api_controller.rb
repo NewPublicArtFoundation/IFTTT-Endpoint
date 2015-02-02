@@ -7,11 +7,24 @@ class ApiController < ApplicationController
   def test_setup
     @data = {
       data: {
-        trigger: {},
-        action: {}
+        samples: {
+          trigger: {
+            new_piece_in_area: {
+              location: "new york city"
+            }
+          },
+          action: {
+            get_closest_piece: {
+              url: "http://scontent-a.cdninstagram.com/hphotos-xfa1/t51.2885-15/10683752_458280327647217_295471039_n.jpg"
+            }
+          }
+        }
       }
     }
     render json: @data, status: 200
+  end
+
+  def triggers_new_piece_in_area
   end
 
   def actions_get_closest_piece
