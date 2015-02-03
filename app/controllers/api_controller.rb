@@ -19,21 +19,6 @@ class ApiController < ApplicationController
     render json: @data, status: 200
   end
 
-  def get_new_pieces_in_area_items location, id
-    image_url = ''
-    location_url = ''
-
-    item = {
-      public_art: image_url,
-      location: location_url,
-      meta: {
-        id: SecureRandom.base64.to_s,
-        timestamp: Time.now.to_i
-      }
-    }
-
-    return item
-  end
 
   def triggers_new_piece_in_area
     if params[:triggerFields].nil? ||params[:triggerFields][:location].nil?
@@ -52,13 +37,35 @@ class ApiController < ApplicationController
     render json: { data: data }, status: 200
   end
 
+  def get_new_pieces_in_area_items result
+    image_url = result["properties"]["title"]
+    location_url = result["geometry"]["coordinates"][0].to_s + ', ' + result["geometry"]["coordinates"][1].to_s
+
+    item = {
+      public_art: image_url,
+      location: location_url,
+      meta: {
+        id: SecureRandom.base64.to_s,
+        timestamp: Time.now.to_i
+      }
+    }
+
+    return item
+  end
+
   def get_data_from_publicart location, limit
     result = request_publicart location
+
     if result.count >= limit
-      data = result.slice(0, limit)
+      results = result.slice(0, limit)
     else
-      data = result
+      results
     end
+
+    results.each do |result|
+      data << get_new_pieces_in_area_items result
+    end
+
     return data
   end
 
