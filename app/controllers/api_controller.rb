@@ -36,29 +36,21 @@ class ApiController < ApplicationController
   end
 
   def triggers_new_piece_in_area
-    data = []
-    id = request['X-Request-ID']
-
-    if params[:triggerFields].nil?
-      render_error 'Does not have TriggerFields'
-      return
-    elsif params[:triggerFields][:location].nil?
-      render_error 'Does not have Location'
+    if params[:triggerFields].nil? ||params[:triggerFields][:location].nil?
+      render_error 'Does not have field'
       return
     end
-
+    id = request['X-Request-ID']
     location = params[:triggerFields][:location]
     limit = params[:limit]
 
-    data << get_new_pieces_in_area_items(location, id)
-    data << get_new_pieces_in_area_items(location, id)
-    data << get_new_pieces_in_area_items(location, id)
-
-    if !limit.nil?
-      data = data.slice(0, limit.to_i)
-    end
+    data = get_data_from_publicart location, limit
 
     render json: { data: data }, status: 200
+  end
+
+  def get_data_from_publicart location, limit
+
   end
 
   def render_error message
