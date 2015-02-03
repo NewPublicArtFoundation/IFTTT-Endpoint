@@ -26,7 +26,11 @@ class ApiController < ApplicationController
       return
     end
     id = request['X-Request-ID']
-    location = params[:triggerFields][:location][:lat].to_s + ', ' + params[:triggerFields][:location][:lon].to_s
+    if params[:triggerFields][:location][:lat].nil?
+      location = params[:triggerFields][:location]
+    else
+      location = params[:triggerFields][:location][:lat].to_s + ', ' + params[:triggerFields][:location][:lon].to_s
+    end
 
     if !params[:limit].nil?
       limit = params[:limit]
