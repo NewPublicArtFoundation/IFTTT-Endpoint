@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'api#status'
+
   # Setup/Test
   match 'api/v1/ifttt/v1/status',      to: 'api#status',    via: [:get]
   match 'api/v1/ifttt/v1/test/setup',  to: 'api#test_setup', via: [:get, :post]
