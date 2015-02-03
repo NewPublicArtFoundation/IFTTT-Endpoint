@@ -10,7 +10,13 @@ class ApiController < ApplicationController
         samples: {
           triggers: {
             new_piece_in_area: {
-              location: "new york city"
+              location: {
+                lat: 37.78352269186359,
+                lng: -122.41719899999998,
+                radius: 188,
+                address: "538-598 Eddy Street, San Francisco, CA 94109, USA",
+                description: "miami"
+              }
             }
           },
         }
