@@ -28,6 +28,8 @@ class ApiController < ApplicationController
       return
     end
 
+
+
     if params[:triggerFields][:location].class == Hash
       lat = params[:triggerFields][:location][:lat]
       lon = params[:triggerFields][:location][:lon]
