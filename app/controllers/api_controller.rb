@@ -39,7 +39,8 @@ class ApiController < ApplicationController
 
   def get_new_pieces_in_area_items result
     image_url = result["properties"]["title"]
-    location_url = result["geometry"]["coordinates"][0].to_s + ', ' + result["geometry"]["coordinates"][1].to_s
+    location = result["geometry"]["coordinates"][0].to_s + ', ' + result["geometry"]["coordinates"][1].to_s
+    location_url = 'http://maps.googleapis.com/maps/api/staticmap?center=' + location + '&zoom=13&scale=false&size=600x300&maptype=roadmap&format=png&visual_refresh=true'
 
     item = {
       public_art: image_url,
@@ -54,26 +55,24 @@ class ApiController < ApplicationController
   end
 
   def get_data_from_publicart location, limit
-    result = request_publicart location
+    data = []
+    results = request_publicart location
 
-    if result.count >= limit
-      results = result.slice(0, limit)
-    else
-      results
-    end
-
+    i = 0
     results.each do |result|
-      data << get_new_pieces_in_area_items result
+      if(i < limit)
+        data << get_new_pieces_in_area_items(result)
+      end
+      i = i + 1
     end
 
     return data
   end
 
   def request_publicart location
-    url = 'http://www.publicart.io/find.json?search=' + url_encode(location)
-    response = HTTParty.get(url)
-    body = JSON.parse(response)
-    return body["data"]
+    url = 'http://www.publicart.io/find.json?search=' + URI.encode(location)
+    data = HTTParty.get(url)
+    return data["data"]
   end
 
   def render_error message
