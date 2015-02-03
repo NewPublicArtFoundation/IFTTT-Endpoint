@@ -40,25 +40,29 @@ class ApiController < ApplicationController
     id = request['X-Request-ID']
 
     if params[:triggerFields].nil?
-      render json: { errors: [ { message: 'Does not have TriggerFields' } ] }, status: 400
+      render_error 'Does not have TriggerFields'
+      return
     elsif params[:triggerFields][:location].nil?
-      render json: { errors: [ { message: 'Does not have Location' } ] }, status: 400
-    else
-      location = params[:triggerFields][:location]
-      limit = params[:limit]
-
-      data << get_new_pieces_in_area_items(location, id)
-      data << get_new_pieces_in_area_items(location, id)
-      data << get_new_pieces_in_area_items(location, id)
-
-      if !limit.nil?
-        data = data.slice(0, limit.to_i)
-      end
-
-      @data = { data: data }
-
-      render json: @data, status: 200
+      render_error 'Does not have Location'
+      return
     end
+
+    location = params[:triggerFields][:location]
+    limit = params[:limit]
+
+    data << get_new_pieces_in_area_items(location, id)
+    data << get_new_pieces_in_area_items(location, id)
+    data << get_new_pieces_in_area_items(location, id)
+
+    if !limit.nil?
+      data = data.slice(0, limit.to_i)
+    end
+
+    render json: { data: data }, status: 200
+  end
+
+  def render_error message
+    render json: { errors: [ { message: message } ] }, status: 400
   end
 
   def setup
