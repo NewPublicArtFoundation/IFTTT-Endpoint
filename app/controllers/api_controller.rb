@@ -34,9 +34,7 @@ class ApiController < ApplicationController
     end
 
     if params[:triggerFields][:location].class == Hash
-      lat = params[:triggerFields][:location][:lat]
-      lon = params[:triggerFields][:location][:lon]
-      location = lat.to_s + ', ' + lon.to_s
+      location = params[:triggerFields][:location][:address]
     else
       location = params[:triggerFields][:location]
     end
