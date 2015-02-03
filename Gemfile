@@ -34,6 +34,7 @@ gem 'devise-token_authenticatable'
 
 # # Analytics
 gem 'newrelic_rpm'
+gem 'rollbar', '~> 1.4.2'
 
 # Other
 gem 'httparty'
