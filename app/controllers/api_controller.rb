@@ -27,7 +27,7 @@ class ApiController < ApplicationController
       public_art: image_url,
       location: location_url,
       meta: {
-        id: SecureRandom.base64,
+        id: SecureRandom.base64.to_s,
         timestamp: Time.now.to_i
       }
     }
