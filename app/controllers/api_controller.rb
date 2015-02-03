@@ -23,18 +23,17 @@ class ApiController < ApplicationController
   def triggers_new_piece_in_area
     id = request['X-Request-ID']
 
-    if params[:triggerFields][:location].nil?
-      render_error 'Does not have field'
-      return
-    elsif params[:triggerFields].nil?
+    if params[:triggerFields].nil? || params[:triggerFields][:location].nil?
       render_error 'Does not have field'
       return
     end
 
-    if params[:triggerFields][:location][:lat].nil?
-      location = params[:triggerFields][:location]
+    if params[:triggerFields][:location].class == Hash
+      lat = params[:triggerFields][:location][:lat]
+      lon = params[:triggerFields][:location][:lon]
+      location = lat.to_s + ', ' + lon.to_s
     else
-      location = params[:triggerFields][:location][:lat].to_s + ', ' + params[:triggerFields][:location][:lon].to_s
+      location = params[:triggerFields][:location]
     end
 
     if !params[:limit].nil?
