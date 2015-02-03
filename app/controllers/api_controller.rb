@@ -55,10 +55,14 @@ class ApiController < ApplicationController
     created_date = result["discovered"]
     location = result["geometry"]["coordinates"][0].to_s + ', ' + result["geometry"]["coordinates"][1].to_s
     location_url = URI.encode('http://maps.googleapis.com/maps/api/staticmap?center=' + location + '&markers=' + location + '&zoom=14&scale=false&size=600x300&maptype=roadmap&format=png&visual_refresh=true')
+    latitude = result["geometry"]["coordinates"][0].to_s
+    longitude = result["geometry"]["coordinates"][1].to_s
 
     item = {
       public_art: image_url,
       location: location_url,
+      latitude: latitude,
+      longitude: longitude,
       created_date: created_date,
       meta: {
         id: SecureRandom.base64.to_s,
