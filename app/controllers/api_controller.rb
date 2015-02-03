@@ -32,12 +32,13 @@ class ApiController < ApplicationController
       render_error 'Does not have field'
       return
     end
-
-    if params[:triggerFields][:location].class == Hash
+    if params[:triggerFields][:location][:address] != nil
       location = params[:triggerFields][:location][:address]
-    else
+    elsif
       location = params[:triggerFields][:location]
     end
+
+    location = URI.encode(location.to_s)
 
     if !params[:limit].nil?
       limit = params[:limit]
@@ -84,9 +85,9 @@ class ApiController < ApplicationController
   end
 
   def request_publicart location
-    url = 'http://www.publicart.io/find.json?search=' +
+    url = 'http://www.publicart.io/find.json?search=' + location
     response = HTTParty.get(url)
-    data = JSON.parse(response)
+    data = JSON.parse(response.body)
     return data["data"]
   end
 
