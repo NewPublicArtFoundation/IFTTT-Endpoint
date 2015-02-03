@@ -84,8 +84,9 @@ class ApiController < ApplicationController
   end
 
   def request_publicart location
-    url = 'http://www.publicart.io/find.json?search=' + URI.encode(location.to_s)
-    data = HTTParty.get(url)
+    url = 'http://www.publicart.io/find.json?search=' +
+    response = HTTParty.get(url)
+    data = JSON.parse(response)
     return data["data"]
   end
 
