@@ -39,12 +39,12 @@ class ApiController < ApplicationController
     data = []
     id = request['X-Request-ID']
 
-    if params[:triggerFields][:location].nil?
-      render json: {errors: ['Does not have Location']}, status: 400
-    end
-
     if params[:triggerFields].nil?
       render json: {errors: ['Does not have TriggerFields']}, status: 400
+    end
+
+    if params[:triggerFields][:location].nil?
+      render json: {errors: ['Does not have Location']}, status: 400
     end
 
     location = params[:triggerFields][:location]
@@ -58,9 +58,7 @@ class ApiController < ApplicationController
       data = data.slice(0, limit.to_i)
     end
 
-    @data = {
-      data: data
-    }
+    @data = { data: data }
 
     render json: @data, status: 200
   end

@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_filter :authorize
 
   def not_verified
-    render json: {response: 401, status: 'Not valid'}, status: 401
+    render json: {response: 401, errors: ['Does not have valid Access Token.'], status: 'Not valid'}, status: 401
   end
 
   private
