@@ -22,13 +22,12 @@ class ApiController < ApplicationController
   def get_new_pieces_in_area_items location, id
     image_url = ''
     location_url = ''
-    items = []
 
     item = {
       public_art: image_url,
       location: location_url,
       meta: {
-        id: id,
+        id: SecureRandom.base64,
         timestamp: Time.now.to_i
       }
     }
@@ -37,13 +36,13 @@ class ApiController < ApplicationController
   end
 
   def triggers_new_piece_in_area
+    data = []
     id = request['X-Request-ID']
     location = params[:triggerFields][:location]
 
-    data = []
-    data << get_new_pieces_in_area_items location, id + '0'
-    data << get_new_pieces_in_area_items location, id + '1'
-    data << get_new_pieces_in_area_items location, id + '2'
+    data << get_new_pieces_in_area_items(location, id)
+    data << get_new_pieces_in_area_items(location, id)
+    data << get_new_pieces_in_area_items(location, id)
 
     @data = {
       data: data
