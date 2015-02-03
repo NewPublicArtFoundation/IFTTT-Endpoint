@@ -40,9 +40,9 @@ class ApiController < ApplicationController
     id = request['X-Request-ID']
 
     if params[:triggerFields].nil?
-      render json: {errors: ['Does not have TriggerFields']}, status: 400
+      render json: { errors: [ { message: 'Does not have TriggerFields' } ] }, status: 400
     elsif params[:triggerFields][:location].nil?
-      render json: {errors: ['Does not have Location']}, status: 400
+      render json: { errors: [ { message: 'Does not have Location' } ] }, status: 400
     else
       location = params[:triggerFields][:location]
       limit = params[:limit]
