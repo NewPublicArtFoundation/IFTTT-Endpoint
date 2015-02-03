@@ -43,14 +43,21 @@ class ApiController < ApplicationController
     id = request['X-Request-ID']
     location = params[:triggerFields][:location]
     limit = params[:limit]
-
     data = get_data_from_publicart location, limit
-
     render json: { data: data }, status: 200
   end
 
   def get_data_from_publicart location, limit
 
+  end
+
+  def request_publicart location
+    url = URI.parse('http://www.publicart.io/find.json?search=' + url_encode(location) )
+    req = Net::HTTP::Get.new(url.to_s)
+    res = Net::HTTP.start(url.host, url.port) {|http|
+      http.request(req)
+    }
+    puts res.body
   end
 
   def render_error message
